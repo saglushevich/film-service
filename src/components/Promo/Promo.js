@@ -27,12 +27,12 @@ function Promo () {
     const content = !loading ? <ViewPromo film={banner[0]}/> : null
 
     return (
-        <div className="promo">
+        <section className="promo">
             <div className="container">
                 {spinner}
                 {content}
             </div>
-        </div>
+        </section>
     )
 
 }

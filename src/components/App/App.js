@@ -1,15 +1,11 @@
-import Promo from "../Promo/Promo";
-import Header from "../Header/Header";
-import TrendingTV from "../Trending/TrendingTV";
-import TrendingMovie from "../Trending/TrendingMovie";
+import MainPage from "../Pages/MainPage";
+import SearchPage from '../Pages/SearchPage'
 
 function App() {
     return (
         <div className="app">
-            <Header/>
-            <Promo/>
-            <TrendingTV/>
-            <TrendingMovie/>
+            <MainPage/>
+            <SearchPage/>
         </div>
     );
 }

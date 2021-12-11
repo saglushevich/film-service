@@ -13,7 +13,17 @@ class FilmService {
 
     getPopularContent = async (type) => {
         const res = await this.getResource(`https://api.themoviedb.org/3/${type}/popular?${this._apiKey}`);
-        return res.results.map(this._transformPopularContent)
+        return res.results.map(this._transformPopularContent);
+    }
+
+    getPopularActors = async () => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/person/popular?${this._apiKey}`);
+        return res.results.map(this._transformPopularActors);
+    }
+
+    getSearch = async (query) => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/search/multi?${this._apiKey}&query=${query}`)
+        return res.results.map(item => item);
     }
 
     _transformPopularContent = (film) => {
@@ -30,6 +40,15 @@ class FilmService {
             popularity: film.popularity,
             adult: film.adult,
             genres: film.genre_ids
+        }
+    }
+
+    _transformPopularActors = (actor) => {
+        return {
+            id: actor.id,
+            image: `https://image.tmdb.org/t/p/w500${actor.profile_path}`,
+            name: actor.name,
+            popularity: actor.popularity,
         }
     }
 }

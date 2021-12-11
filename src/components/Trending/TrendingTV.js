@@ -21,7 +21,7 @@ function TrendingTV () {
 
     const tv = trendingTVList.map((item, i) => {
         if (i < 6) {
-            return <div key={item.id} className="trending__item"><img src={item.image} alt={item.title} /></div>
+            return <li key={item.id} className="trending__item"><img src={item.image} alt={item.title} /></li>
         }
         return null
     })
