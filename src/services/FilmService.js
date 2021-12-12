@@ -11,14 +11,19 @@ class FilmService {
         return await res.json();
     }
 
-    getPopularContent = async (type) => {
-        const res = await this.getResource(`https://api.themoviedb.org/3/${type}/popular?${this._apiKey}`);
+    getPopularContent = async (type, page = 1) => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/${type}/popular?${this._apiKey}&page=${page}`);
         return res.results.map(this._transformPopularContent);
     }
 
-    getPopularActors = async () => {
-        const res = await this.getResource(`https://api.themoviedb.org/3/person/popular?${this._apiKey}`);
+    getPopularActors = async (page = 1) => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/person/popular?${this._apiKey}&page=${page}`);
         return res.results.map(this._transformPopularActors);
+    }
+
+    getFilm = async (id) => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/movie/${id}?${this._apiKey}`);
+        return this._transformPopularContent(res);
     }
 
     getSearch = async (query) => {
@@ -29,7 +34,7 @@ class FilmService {
     _transformPopularContent = (film) => {
         return {
             title: film.title ? film.title : null,
-            name: film.name ? film.title : null,
+            name: film.name,
             date: film.release_date ? film.release_date : null,
             first_air_date: film.first_air_date ? film.first_air_date : null,
             image: `https://image.tmdb.org/t/p/w500${film.poster_path}`,

@@ -1,0 +1,55 @@
+.content
+    padding: 80px 0
+    &__grid
+        display: grid
+        grid-template-columns: repeat(5, 206px)
+        grid-template-rows: repeat(auto, 309px)
+        gap: 60px
+        justify-content: center
+        margin-top: 50px
+    &__title
+        font-family: Mulish
+        font-weight: 700
+        font-size: 40px
+        line-height: 20px
+        color: #FFFFFF
+        text-align: center
+    &__item
+        width: 206px
+        height: 309px
+        border-radius: 20px
+        cursor: pointer
+        transition: all .5s
+        &:nth-child(n+6)
+            margin-top: 40px
+        &-img
+            img
+                width: 206px
+                height: 309px
+                border-radius: 20px
+                object-fit: cover
+        &-title
+            font-family: Mulish
+            font-weight: 700
+            font-size: 18px
+            text-align: center
+            color: #FFFFFF
+            margin-top: 10px
+            line-height: 20px
+        &:hover
+            filter: drop-shadow(0px 0px 20px rgba(44, 176, 249, 0.5))
+    &__btn
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 260px
+        height: 60px
+        background: #FFFFFF
+        border-radius: 100px
+        cursor: pointer
+        font-family: Mulish
+        font-weight: 800
+        font-size: 26px
+        color: #323232
+        margin: 0 auto
+        margin-top: 100px

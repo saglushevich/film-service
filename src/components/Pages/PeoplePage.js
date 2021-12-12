@@ -1,0 +1,41 @@
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import FilmService from '../../services/FilmService';
+import {useState, useEffect} from 'react';
+import ContentList from '../ContentList/ContentList';
+
+function PeoplePage () {
+    const [peopleList, setPeopleList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(2);
+    const filmService = new FilmService();
+
+    const onPeopleListLoaded = (item) => {
+        setPeopleList(peopleList => [...peopleList, ...item]);
+        setLoading(loading => false);
+    }
+
+    const updatePeopleList = (page) => {
+        filmService.getPopularActors(page).then(onPeopleListLoaded);
+    }
+
+    const getNewPeopleList = () => {
+        setPage(page => page + 1);
+        updatePeopleList(page);
+    }
+
+    useEffect(() => {
+        updatePeopleList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <>
+            <Header/>
+            <ContentList getNewList={getNewPeopleList} data={peopleList} loading={loading} title={'Popular actors: '}/>
+            <Footer/>
+        </>
+    )
+}
+
+export default PeoplePage;
