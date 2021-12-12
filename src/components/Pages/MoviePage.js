@@ -4,7 +4,7 @@ import FilmService from '../../services/FilmService';
 import {useState, useEffect} from 'react';
 import ContentList from '../ContentList/ContentList'
 
-function MoviePage () {
+function MoviePage (props) {
     const [movieList, setMovieList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(2);
@@ -32,7 +32,7 @@ function MoviePage () {
     return (
         <>
             <Header/>
-            <ContentList getNewList={getNewMovieList} data={movieList} loading={loading} title={'Movies: '}/>
+            <ContentList type={'movie'} onSelected={props.onSelected} getNewList={getNewMovieList} data={movieList} loading={loading} title={'Movies: '}/>
             <Footer/>
         </>
     )

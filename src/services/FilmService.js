@@ -26,6 +26,11 @@ class FilmService {
         return this._transformPopularContent(res);
     }
 
+    getTV = async (id) => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/tv/${id}?${this._apiKey}`);
+        return this._transformPopularContent(res);
+    }
+
     getSearch = async (query) => {
         const res = await this.getResource(`https://api.themoviedb.org/3/search/multi?${this._apiKey}&query=${query}`)
         return res.results.map(item => item);
@@ -44,7 +49,7 @@ class FilmService {
             overview: film.overview,
             popularity: film.popularity,
             adult: film.adult,
-            genres: film.genre_ids
+            status: film.status
         }
     }
 
