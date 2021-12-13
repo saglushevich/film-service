@@ -2,7 +2,8 @@ import './Trending.sass';
 import '../../styles/styles.sass'
 import FilmService from '../../services/FilmService';
 import Spinner from '../Spinner/Spinner';
-import {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 
 function TrendingTV () {
     const [trendingTVList, setTrendingTVList] = useState([]);
@@ -21,7 +22,11 @@ function TrendingTV () {
 
     const tv = trendingTVList.map((item, i) => {
         if (i < 6) {
-            return <li key={item.id} className="trending__item"><img src={item.image} alt={item.title} /></li>
+            return (
+                <Link to={`/detailsTV/${item.id}`} key={item.id}>
+                    <li key={item.id} className="trending__item"><img src={item.image} alt={item.title} /></li>
+                </Link>
+            )
         }
         return null
     })

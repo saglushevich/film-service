@@ -3,18 +3,10 @@ import SearchPage from '../Pages/SearchPage'
 import TVPage from "../Pages/TVPage";
 import MoviePage from "../Pages/MoviePage";
 import PeoplePage from "../Pages/PeoplePage";
-import ContentPage from "../Pages/ContentPage";
+import SinglePage from '../Pages/SinglePage'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {useState} from 'react'
 
 function App () {
-    const [selectedId, setSelectedId] = useState(null);
-    const [selectedtype, setSelectedType] = useState(null);
-    
-    const onSelected = (id, type) => {
-        setSelectedId(id);
-        setSelectedType(type)
-    } 
 
     return (
         <div className="app">
@@ -27,16 +19,19 @@ function App () {
                         <SearchPage/>
                     </Route>
                     <Route path="/movie">
-                        <MoviePage onSelected={onSelected}/>
+                        <MoviePage/>
                     </Route>
                     <Route path="/tv">
-                        <TVPage onSelected={onSelected}/>
+                        <TVPage/>
                     </Route>
                     <Route path="/people">
                         <PeoplePage/>
                     </Route>
-                    <Route path="/details" exact>
-                        <ContentPage id={selectedId} type={selectedtype}/>
+                    <Route path="/details/:id">
+                        <SinglePage type="movie"/>
+                    </Route>
+                    <Route path="/detailsTV/:id">
+                        <SinglePage type="tv"/>
                     </Route>
                 </Switch>
             </Router>

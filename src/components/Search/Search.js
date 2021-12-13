@@ -4,6 +4,7 @@ import search from '../../resources/icons/search.svg';
 import FilmService from '../../services/FilmService';
 import {useState} from 'react';
 import Spinner from '../Spinner/Spinner';
+import { Link } from 'react-router-dom';
 
 function Search () {
     const [searchResult, setSearchResult] = useState([]);
@@ -49,19 +50,23 @@ function Search () {
 
     const movieContent = movie.map(item => {
         return (
-            <li key={item.id} className="search__item">
-                <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} /></div>
-                <div className="search__item-title">{item.title}</div>    
-            </li>
+            <Link to={`/details/${item.id}`} key={item.id}>
+                <li key={item.id} className="search__item">
+                    <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} /></div>
+                    <div className="search__item-title">{item.title}</div>    
+                </li>
+            </Link>
         )
     })
 
     const tvContent = tv.map(item => {
         return (
-            <li key={item.id} className="search__item">
-                <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} /></div>
-                <div className="search__item-title">{item.name}</div>    
-            </li>
+            <Link to={`/detailsTV/${item.id}`} key={item.id}>
+                <li key={item.id} className="search__item">
+                    <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} /></div>
+                    <div className="search__item-title">{item.name}</div>    
+                </li>
+            </Link>
         )
     })
 

@@ -32,7 +32,7 @@ function MoviePage (props) {
     return (
         <>
             <Header/>
-            <ContentList type={'movie'} onSelected={props.onSelected} getNewList={getNewMovieList} data={movieList} loading={loading} title={'Movies: '}/>
+            <ContentList type='movie' getNewList={getNewMovieList} data={movieList} loading={loading} title={'Movies: '}/>
             <Footer/>
         </>
     )

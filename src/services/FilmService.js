@@ -21,10 +21,15 @@ class FilmService {
         return res.results.map(this._transformPopularActors);
     }
 
-    getFilm = async (id) => {
-        const res = await this.getResource(`https://api.themoviedb.org/3/movie/${id}?${this._apiKey}`);
+    getContent = async (id, type) => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/${type}/${id}?${this._apiKey}`);
         return this._transformPopularContent(res);
     }
+
+    // getTV = async (id) => {
+    //     const res = await this.getResource(`https://api.themoviedb.org/3/tv/${id}?${this._apiKey}`);
+    //     return this._transformPopularContent(res);
+    // }
 
     getTV = async (id) => {
         const res = await this.getResource(`https://api.themoviedb.org/3/tv/${id}?${this._apiKey}`);

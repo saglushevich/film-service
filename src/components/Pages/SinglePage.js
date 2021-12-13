@@ -1,20 +1,39 @@
-import './SinglePage.sass'
-import '../../styles/styles.sass';
+import Header from "../Header/Header"
+import Footer from "../Footer/Footer"
+import FilmService from '../../services/FilmService';
+import { useEffect, useState } from 'react';
+import {useParams} from 'react-router-dom';
 import Spinner from '../Spinner/Spinner';
-
+import './SinglePage.sass'
+import '../../styles/styles.sass'
 
 function SinglePage (props) {
+    const {type} = props;
+    const {id} = useParams();
+    const [info, setInfo] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const filmService = new FilmService();
 
-    const {info, loading} = props;
+    const updateInfo = () => {
+        type === 'movie' ? filmService.getContent(id, 'movie').then(onInfoLoaded) : filmService.getContent(id, 'tv').then(onInfoLoaded);
+    }
 
-    const spinner = loading ? <Spinner/> : <ViewInfo info={info}/>;
+    const onInfoLoaded = (info) => {
+        setInfo(info);
+        setLoading(loading => false)
+    }
+
+    useEffect(() => {
+        updateInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
 
     return (
-        <section className="single">
-            <div className="container">
-                {spinner}
-            </div>
-        </section>
+        <>
+            <Header/>
+            {loading ? <Spinner/> : <ViewInfo info={info}/>}
+            <Footer/>
+        </>
     )
 }
 
@@ -43,4 +62,4 @@ function ViewInfo ({info}) {
     )
 }
 
-export default SinglePage;
+export default SinglePage
