@@ -10,16 +10,25 @@ function ContentList (props) {
     const elements = data.map(item => {
         if(type === 'movie') {
             return (
-                <Link to={`/details/${item.id}`} key={item.id}>
+                <Link to={`/details/movie/${item.id}`} key={item.id}>
                     <li key={item.id} className="content__item">
                         <div className="search__item-img"><img src={item.image} alt={item.title || item.name} /></div>
                         <div className="search__item-title">{item.name || item.title}</div>  
                     </li>
                 </Link>
             )
-        } else {
+        } else if (type === 'tv'){
             return (
-                <Link to={`/detailsTV/${item.id}`} key={item.id}>
+                <Link to={`/details/tv/${item.id}`} key={item.id}>
+                    <li key={item.id} className="content__item">
+                        <div className="search__item-img"><img src={item.image} alt={item.title || item.name} /></div>
+                        <div className="search__item-title">{item.name || item.title}</div>  
+                    </li>
+                </Link>
+            )
+        } else if (type === 'person') {
+            return (
+                <Link to={`/details/person/${item.id}`} key={item.id}>
                     <li key={item.id} className="content__item">
                         <div className="search__item-img"><img src={item.image} alt={item.title || item.name} /></div>
                         <div className="search__item-title">{item.name || item.title}</div>  
@@ -27,6 +36,7 @@ function ContentList (props) {
                 </Link>
             )
         }
+        return null;
     });
 
     return (

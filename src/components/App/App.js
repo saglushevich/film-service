@@ -3,7 +3,8 @@ import SearchPage from '../Pages/SearchPage'
 import TVPage from "../Pages/TVPage";
 import MoviePage from "../Pages/MoviePage";
 import PeoplePage from "../Pages/PeoplePage";
-import SinglePage from '../Pages/SinglePage'
+import SingleContentPage from "../Pages/SingleContentPage";
+import SinglePersonPage from "../Pages/SinglePersonPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App () {
@@ -27,11 +28,14 @@ function App () {
                     <Route path="/people">
                         <PeoplePage/>
                     </Route>
-                    <Route path="/details/:id">
-                        <SinglePage type="movie"/>
+                    <Route path="/details/movie/:id">
+                        <SingleContentPage type="movie"/>
                     </Route>
-                    <Route path="/detailsTV/:id">
-                        <SinglePage type="tv"/>
+                    <Route path="/details/tv/:id">
+                        <SingleContentPage type="tv"/>
+                    </Route>
+                    <Route path="/details/person/:id">
+                        <SinglePersonPage/>
                     </Route>
                 </Switch>
             </Router>

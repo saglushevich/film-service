@@ -32,7 +32,7 @@ function PeoplePage () {
     return (
         <>
             <Header/>
-            <ContentList getNewList={getNewPeopleList} data={peopleList} loading={loading} title={'Popular actors: '}/>
+            <ContentList type='person' getNewList={getNewPeopleList} data={peopleList} loading={loading} title={'Popular actors: '}/>
             <Footer/>
         </>
     )

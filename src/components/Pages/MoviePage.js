@@ -4,7 +4,7 @@ import FilmService from '../../services/FilmService';
 import {useState, useEffect} from 'react';
 import ContentList from '../ContentList/ContentList'
 
-function MoviePage (props) {
+function MoviePage () {
     const [movieList, setMovieList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(2);

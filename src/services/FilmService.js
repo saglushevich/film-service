@@ -26,14 +26,8 @@ class FilmService {
         return this._transformPopularContent(res);
     }
 
-    // getTV = async (id) => {
-    //     const res = await this.getResource(`https://api.themoviedb.org/3/tv/${id}?${this._apiKey}`);
-    //     return this._transformPopularContent(res);
-    // }
-
-    getTV = async (id) => {
-        const res = await this.getResource(`https://api.themoviedb.org/3/tv/${id}?${this._apiKey}`);
-        return this._transformPopularContent(res);
+    getPerson = async (id) => {
+        return await this.getResource(`https://api.themoviedb.org/3/person/${id}?${this._apiKey}`);
     }
 
     getSearch = async (query) => {

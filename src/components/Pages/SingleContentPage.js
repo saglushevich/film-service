@@ -4,10 +4,10 @@ import FilmService from '../../services/FilmService';
 import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import Spinner from '../Spinner/Spinner';
-import './SinglePage.sass'
+import './SingleContentPage.sass'
 import '../../styles/styles.sass'
 
-function SinglePage (props) {
+function SingleContentPage (props) {
     const {type} = props;
     const {id} = useParams();
     const [info, setInfo] = useState(null);
@@ -62,4 +62,4 @@ function ViewInfo ({info}) {
     )
 }
 
-export default SinglePage
+export default SingleContentPage
