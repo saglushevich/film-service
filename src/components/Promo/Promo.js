@@ -3,6 +3,7 @@ import './Promo.sass'
 import rating from '../../resources/icons/rating.svg';
 import FilmService from '../../services/FilmService';
 import Spinner from '../Spinner/Spinner';
+import { Link } from 'react-router-dom';
 import {useEffect, useState} from 'react';
 
 function Promo () {
@@ -38,7 +39,7 @@ function Promo () {
 }
 
 function ViewPromo ({film}) {
-    const {title, date, overview, adult, vote, image} = film;
+    const {title, date, overview, adult, vote, image, id} = film;
     return (
         <>
             <h1 className="promo__title">{title}</h1>
@@ -50,7 +51,9 @@ function ViewPromo ({film}) {
                 <div className="promo__text">{overview}</div>
                 <div className="promo__btns">
                     <div className="button">Watch</div>
-                    <div className="button-large">More information</div>
+                    <Link to={`/details/movie/${id}`} key={id}>
+                        <div className="button-large">More information</div>
+                    </Link>
                 </div>
             <div className="promo__img"><img src={image} alt="main__bg" /></div>
         </>

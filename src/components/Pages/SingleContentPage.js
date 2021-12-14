@@ -40,18 +40,19 @@ function SingleContentPage (props) {
 function ViewInfo ({info}) {
     return (
         <>
-            <h2 className="single__title">Look at the info below: </h2>
             <div className="single__block">
                 <div className="single__img"><img src={info.image} alt={info.title || info.name} /></div>
                 <div className="single__info">
-                    <div className="single__info-text">Title: {info.title || info.name}</div>
                     <div className="single__info-details">
+                        <div className="single__info-text"><span>Title:</span> {info.title || info.name}</div>
                         <div className="single__info-text">{info.adult ? '18+' : null}</div>
-                        <div className="single__info-text">Popularity: {info.popularity}</div>
-                        <div className="single__info-text">Status: {info.status}</div>
-                        <div className="single__info-text">Language: {info.language}</div>
-                        <div className="single__info-text">Vote: {info.vote}</div>
-                        <div className="single__info-text">Release date: {info.date}</div>
+                        <div className="single__info-text"><span>Genres:</span> {info.genre}</div>
+                        <div className="single__info-text"><span>Country:</span> {info.country}</div>
+                        <div className="single__info-text"><span>Status:</span> {info.status}</div>
+                        <div className="single__info-text"><span>Release date:</span> {info.date}</div>
+                        <div className="single__info-text"><span>Popularity:</span> {info.popularity}</div>
+                        <div className="single__info-text"><span>Language:</span> {info.language}</div>
+                        <div className="single__info-text"><span>Vote:</span> {info.vote}</div>
                     </div>
                     <div className="single__info-overview">
                         {info.overview}

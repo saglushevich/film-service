@@ -1,6 +1,7 @@
 import './Trending.sass'
 import '../../styles/styles.sass'
 import FilmService from '../../services/FilmService';
+import { Link } from 'react-router-dom';
 import Spinner from '../Spinner/Spinner';
 import {useEffect, useState} from 'react'
 
@@ -21,7 +22,11 @@ function TrendingActors () {
 
     const actors = trendingActorsList.map((item, i) => {
         if (i < 6) {
-            return <li key={item.id} className="trending__item"><img src={item.image} alt={item.title} /></li>
+            return (
+                <Link to={`/details/person/${item.id}`} key={item.id}>
+                    <li key={item.id} className="trending__item"><img src={item.image} alt={item.title} /></li>
+                </Link>
+            )
         }
         return null
     })

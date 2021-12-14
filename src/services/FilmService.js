@@ -39,8 +39,7 @@ class FilmService {
         return {
             title: film.title ? film.title : null,
             name: film.name,
-            date: film.release_date ? film.release_date : null,
-            first_air_date: film.first_air_date ? film.first_air_date : null,
+            date: film.release_date ? film.release_date : film.first_air_date,
             image: `https://image.tmdb.org/t/p/w500${film.poster_path}`,
             id: film.id,
             vote: film.vote_average,
@@ -48,6 +47,8 @@ class FilmService {
             overview: film.overview,
             popularity: film.popularity,
             adult: film.adult,
+            country: film.production_countries ? film.production_countries[0].name : film.origin_country,
+            genre: film.genres ? film.genres[0].name : null,
             status: film.status
         }
     }

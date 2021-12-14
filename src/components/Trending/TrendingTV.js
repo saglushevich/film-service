@@ -23,7 +23,7 @@ function TrendingTV () {
     const tv = trendingTVList.map((item, i) => {
         if (i < 6) {
             return (
-                <Link to={`/detailsTV/${item.id}`} key={item.id}>
+                <Link to={`/details/tv/${item.id}`} key={item.id}>
                     <li key={item.id} className="trending__item"><img src={item.image} alt={item.title} /></li>
                 </Link>
             )
