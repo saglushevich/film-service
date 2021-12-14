@@ -35,7 +35,8 @@ function ContentList (props) {
                     </li>
                 </Link>
             )
-        }
+        } 
+
         return null;
     });
 
@@ -47,7 +48,7 @@ function ContentList (props) {
                 <ul className="content__grid">
                     {elements}
                 </ul>
-                <div onClick={getNewList} className="content__btn">See more</div>
+                <div onClick={getNewList} style={getNewList ? {'display': 'flex'} : {'display': 'none'}} className="content__btn">See more</div>
             </div>
         </section>
     )

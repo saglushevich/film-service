@@ -35,6 +35,20 @@ class FilmService {
         return res.results.map(item => item);
     }
 
+    getGenreContent = async (genre, page = 1) => {
+        const res = await this.getResource(`https://api.themoviedb.org/3/discover/movie?${this._apiKey}&page=${page}&with_genres=${genre}`);
+        return res.results.map(this._transformGenreContent)
+    }
+
+    _transformGenreContent = (content) => {
+        return {
+            id: content.id,
+            title: content.title,
+            genre_ids: content.genre_ids,
+            image: `https://image.tmdb.org/t/p/w500${content.poster_path}`
+        }
+    }
+
     _transformPopularContent = (film) => {
         return {
             title: film.title ? film.title : null,

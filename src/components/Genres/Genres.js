@@ -1,5 +1,6 @@
 import '../../styles/styles.sass'
 import './Genres.sass'
+import { Link } from 'react-router-dom'
 import action from '../../resources/img/genres/action.svg'
 import comedy from '../../resources/img/genres/comedy.svg'
 import documentary from '../../resources/img/genres/documentary.svg'
@@ -18,14 +19,30 @@ function Genres () {
                     Popular genres
                 </h2>
                 <div className="genres__block">
-                    <div style={{'background': 'linear-gradient(109.31deg, #FD093F 2.4%, #F383F1 100%)'}} className="genres__item"><img src={romance} alt="romance" /></div>
-                    <div style={{'background': 'linear-gradient(114.5deg, #0FFFDA 2.22%, #3CDB77 68.84%)'}} className="genres__item"><img src={drama} alt="drama" /></div>
-                    <div style={{'background': 'linear-gradient(109.31deg, #B936FF 2.4%, #57DEDA 100%)'}} className="genres__item"><img src={historical} alt="historical" /></div>
-                    <div style={{'background': 'linear-gradient(109.31deg, #FD093F 2.4%, #FB1378 2.41%, #FCCB1A 100%)'}} className="genres__item"><img src={action} alt="action" /></div>
-                    <div style={{'background': 'linear-gradient(109.31deg, #FF6472 2.4%, #FDA75D 100%)'}} className="genres__item"><img src={sci} alt="sci-fi" /></div>
-                    <div style={{'background': 'linear-gradient(110.16deg, #13547A 2.37%, #80D0C7 96.77%)'}} className="genres__item"><img src={horror} alt="horror" /></div>
-                    <div style={{'background': 'linear-gradient(109.93deg, #FFF77B 2.37%, #FFBF42 50%)'}} className="genres__item"><img src={comedy} alt="comedy" /></div>
-                    <div style={{'background': 'linear-gradient(109.31deg, #1FA2FF 2.4%, #1FA2FF 2.41%, #1F535C 97.46%)'}} className="genres__item"><img src={documentary} alt="documentary" /></div>
+                    <Link to={`/genres/10749`}>
+                        <div style={{'background': 'linear-gradient(109.31deg, #FD093F 2.4%, #F383F1 100%)'}} className="genres__item"><img src={romance} alt="romance" /></div>
+                    </Link>
+                    <Link to={`/genres/18`}>
+                        <div style={{'background': 'linear-gradient(114.5deg, #0FFFDA 2.22%, #3CDB77 68.84%)'}} className="genres__item"><img src={drama} alt="drama" /></div>
+                    </Link>
+                    <Link to={`/genres/36`}>
+                        <div style={{'background': 'linear-gradient(109.31deg, #B936FF 2.4%, #57DEDA 100%)'}} className="genres__item"><img src={historical} alt="historical" /></div>
+                    </Link>
+                    <Link to={`/genres/28`}>
+                        <div style={{'background': 'linear-gradient(109.31deg, #FD093F 2.4%, #FB1378 2.41%, #FCCB1A 100%)'}} className="genres__item"><img src={action} alt="action" /></div>
+                    </Link>
+                    <Link to={`/genres/878`}>
+                        <div style={{'background': 'linear-gradient(109.31deg, #FF6472 2.4%, #FDA75D 100%)'}} className="genres__item"><img src={sci} alt="sci-fi" /></div>
+                    </Link>
+                    <Link to={`/genres/27`}>
+                        <div style={{'background': 'linear-gradient(110.16deg, #13547A 2.37%, #80D0C7 96.77%)'}} className="genres__item"><img src={horror} alt="horror" /></div>
+                    </Link>
+                    <Link to={`/genres/35`}>
+                        <div style={{'background': 'linear-gradient(109.93deg, #FFF77B 2.37%, #FFBF42 50%)'}} className="genres__item"><img src={comedy} alt="comedy" /></div>
+                    </Link>
+                    <Link to={`/genres/99`}>
+                        <div style={{'background': 'linear-gradient(109.31deg, #1FA2FF 2.4%, #1FA2FF 2.41%, #1F535C 97.46%)'}} className="genres__item"><img src={documentary} alt="documentary" /></div>
+                    </Link>
                 </div>
             </div>
         </section>

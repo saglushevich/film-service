@@ -5,7 +5,7 @@ import MoviePage from "../Pages/MoviePage";
 import PeoplePage from "../Pages/PeoplePage";
 import SingleContentPage from "../Pages/SingleContentPage";
 import SinglePersonPage from "../Pages/SinglePersonPage";
-import AccountEnterPage from "../Pages/AccountEnterPage";
+import SelectedGenrePage from "../Pages/SelectedGenrePage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App () {
@@ -29,6 +29,15 @@ function App () {
                     <Route path="/people">
                         <PeoplePage/>
                     </Route>
+
+
+
+                    <Route path="/genres/:genre">
+                        <SelectedGenrePage/>
+                    </Route>
+
+
+
                     <Route path="/details/movie/:id">
                         <SingleContentPage type="movie"/>
                     </Route>
@@ -37,9 +46,6 @@ function App () {
                     </Route>
                     <Route path="/details/person/:id">
                         <SinglePersonPage/>
-                    </Route>
-                    <Route path="/enter">
-                        <AccountEnterPage/>
                     </Route>
                 </Switch>
             </Router>
