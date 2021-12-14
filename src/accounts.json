@@ -1,0 +1,18 @@
+{
+    "accounts": [
+      {
+        "id": 1,
+        "login": "asd",
+        "password": "1234",
+        "age": "22",
+        "name": "qwerty"
+      },
+      {
+        "id": 2,
+        "login": "zxc",
+        "password": "123",
+        "age": "20",
+        "name": "uiop"
+      }
+    ]
+  }
