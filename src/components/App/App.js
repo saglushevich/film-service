@@ -29,15 +29,9 @@ function App () {
                     <Route path="/people">
                         <PeoplePage/>
                     </Route>
-
-
-
                     <Route path="/genres/:genre">
                         <SelectedGenrePage/>
                     </Route>
-
-
-
                     <Route path="/details/movie/:id">
                         <SingleContentPage type="movie"/>
                     </Route>

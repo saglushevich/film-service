@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 function Search () {
     const [searchResult, setSearchResult] = useState([]);
-    const [term, setTerm] = useState(null);
+    const [term, setTerm] = useState('');
     const [loading, setLoading] = useState(false);
     const filmService = new FilmService();
 
@@ -41,16 +41,18 @@ function Search () {
 
     const actingContent = acting.map(actor => {
         return (
-            <li key={actor.id} className="search__item">
-                <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt={actor.name} /></div>
-                <div className="search__item-title">{actor.name}</div>    
-            </li>
+            <Link to={`/details/person/${actor.id}`} key={actor.id}>
+                <li key={actor.id} className="search__item">
+                    <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt={actor.name} /></div>
+                    <div className="search__item-title">{actor.name}</div>    
+                </li>
+            </Link>
         )
     })
 
     const movieContent = movie.map(item => {
         return (
-            <Link to={`/details/${item.id}`} key={item.id}>
+            <Link to={`/details/movie/${item.id}`} key={item.id}>
                 <li key={item.id} className="search__item">
                     <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} /></div>
                     <div className="search__item-title">{item.title}</div>    
@@ -61,7 +63,7 @@ function Search () {
 
     const tvContent = tv.map(item => {
         return (
-            <Link to={`/detailsTV/${item.id}`} key={item.id}>
+            <Link to={`/details/tv/${item.id}`} key={item.id}>
                 <li key={item.id} className="search__item">
                     <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} /></div>
                     <div className="search__item-title">{item.name}</div>    
