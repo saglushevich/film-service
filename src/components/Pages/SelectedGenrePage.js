@@ -9,15 +9,21 @@ function SelectedGenrePage () {
     const {genre} = useParams();
     const [info, setInfo] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(2);
     const filmService = new FilmService();
 
-    const updateInfo = () => {
-        filmService.getGenreContent(genre).then(onInfoLoaded);
+    const updateInfo = (page) => {
+        filmService.getGenreContent(genre, page).then(onInfoLoaded);
     }
 
     const onInfoLoaded = (newInfo) => {
         setInfo(info => [...info, ...newInfo]);
         setLoading(loading => false)
+    }
+
+    const getNewInfoList = () => {
+        setPage(page => page + 1);
+        updateInfo(page);
     }
 
     useEffect(() => {
@@ -28,7 +34,7 @@ function SelectedGenrePage () {
     return (
         <>
             <Header/>
-            <ContentList type={'movie'} data = {info} loading={loading} title={`These are the most popular films in this genre:`}/>
+            <ContentList type={'movie'} getNewList={getNewInfoList} data = {info} loading={loading} title={`These are the most popular films in this genre:`}/>
             <Footer/>
         </>
     )

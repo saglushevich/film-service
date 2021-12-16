@@ -7,6 +7,7 @@ import SingleContentPage from "../Pages/SingleContentPage";
 import SinglePersonPage from "../Pages/SinglePersonPage";
 import SelectedGenrePage from "../Pages/SelectedGenrePage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Test from "../Pages/Test";
 
 function App () {
 
@@ -15,9 +16,10 @@ function App () {
             <Router>
                 <Switch>
                     <Route path="/" exact>
-                        <MainPage/>
+                        <Test/>
+                        {/* <MainPage/> */}
                     </Route>
-                    <Route path="/search">
+                    {/* <Route path="/search">
                         <SearchPage/>
                     </Route>
                     <Route path="/movie">
@@ -40,7 +42,7 @@ function App () {
                     </Route>
                     <Route path="/details/person/:id">
                         <SinglePersonPage/>
-                    </Route>
+                    </Route> */}
                 </Switch>
             </Router>
         </div>
