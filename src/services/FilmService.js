@@ -40,6 +40,10 @@ class FilmService {
         return res.results.map(this._transformGenreContent)
     }
 
+    // getRequestToken = async () => {
+        
+    // }
+
     _transformGenreContent = (content) => {
         return {
             id: content.id,
