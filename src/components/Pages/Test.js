@@ -48,7 +48,7 @@ function Test () {
     return (
         <div className="test">
             <div className="container">
-                <div onClick={finalFunc} className="button">Step1</div>
+                {/* <div onClick={finalFunc} className="button">Step1</div> */}
                 {/* <div onClick={step2} className="button">Step2</div>
                 <div onClick={step3}className="button">Step3</div> */}
             </div>
