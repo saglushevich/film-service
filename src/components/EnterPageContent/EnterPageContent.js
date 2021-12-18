@@ -27,6 +27,23 @@ function EnterPageContent () {
         return result;
     }
 
+    const data = {
+        "name": "This is my awesome test list.",
+        "description": "Just an awesome list dawg.",
+        "language": "en"
+    }
+
+    const createList = async () => {
+        let res = await fetch(`https://api.themoviedb.org/3/list?api_key=4aaf41b3f13597064b5ab63a054684c1&session_id=${sessionId}`, {
+            method: 'POST',
+            body: data,
+            // headers: {
+            //     'Content-type': 'application/json'
+            // }
+        }).then(data => console.log(data));
+        // return res
+    }
+
     return (
         <section className="enter">
             <div className="container">
@@ -36,9 +53,9 @@ function EnterPageContent () {
                         First you need to log into your account, or create a new account. This can be done by clicking the button below. There will also be instructions
                     </div>
                     <a href={`https://www.themoviedb.org/authenticate/${token}`} target="_blank" className="button-large enter__btn">Log in</a>
-                    {/* <div className="button-large enter__btn"><a href="">Log in</a></div> */}
                     <div className="enter__text">If you have passed the previous stage - click on the button below:</div>
                     <div onClick={getId} className="button-large enter__btn">Get access</div>
+                    <div onClick={createList} className="button">Make list</div>
                 </div>
             </div>
             <div className="enter__bg"><img src={bg} alt="EnterBg" /></div>
