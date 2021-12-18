@@ -6,6 +6,7 @@ import PeoplePage from "../Pages/PeoplePage";
 import SingleContentPage from "../Pages/SingleContentPage";
 import SinglePersonPage from "../Pages/SinglePersonPage";
 import SelectedGenrePage from "../Pages/SelectedGenrePage";
+import EnterPage from "../Pages/EnterPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App () {
@@ -39,6 +40,9 @@ function App () {
                     </Route>
                     <Route path="/details/person/:id">
                         <SinglePersonPage/>
+                    </Route>
+                    <Route path="/enter">
+                        <EnterPage/>
                     </Route>
                 </Switch>
             </Router>

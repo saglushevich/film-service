@@ -40,9 +40,13 @@ class FilmService {
         return res.results.map(this._transformGenreContent)
     }
 
-    // getRequestToken = async () => {
-        
-    // }
+    getRequestToken = async () => {
+        return await this.getResource(`https://api.themoviedb.org/3/authentication/token/new?${this._apiKey}`)
+    }
+
+    getSessionId = async (token) => {
+        return await this.getResource(`https://api.themoviedb.org/3/authentication/session/new?${this._apiKey}&request_token=${token}`);
+    }
 
     _transformGenreContent = (content) => {
         return {
