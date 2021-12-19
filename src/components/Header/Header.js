@@ -19,7 +19,7 @@ function Header () {
                     </ul>
                     <div className="nav__icons">
                         <div className="nav__icon"><Link to="/search"><img src={search} alt="search" /></Link></div>
-                        <div className="nav__icon"><Link to="/enter"><img src={profile} alt="profile" /></Link></div>
+                        <div className="nav__icon"><Link to="/account"><img src={profile} alt="profile" /></Link></div>
                     </div>
                 </nav>
             </div>

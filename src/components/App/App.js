@@ -6,7 +6,7 @@ import PeoplePage from "../Pages/PeoplePage";
 import SingleContentPage from "../Pages/SingleContentPage";
 import SinglePersonPage from "../Pages/SinglePersonPage";
 import SelectedGenrePage from "../Pages/SelectedGenrePage";
-import EnterPage from "../Pages/EnterPage";
+import AccountPage from "../Pages/AccountPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App () {
@@ -41,8 +41,8 @@ function App () {
                     <Route path="/details/person/:id">
                         <SinglePersonPage/>
                     </Route>
-                    <Route path="/enter">
-                        <EnterPage/>
+                    <Route path="/account">
+                        <AccountPage/>
                     </Route>
                 </Switch>
             </Router>

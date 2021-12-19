@@ -48,6 +48,37 @@ class FilmService {
         return await this.getResource(`https://api.themoviedb.org/3/authentication/session/new?${this._apiKey}&request_token=${token}`);
     }
 
+    getListId = async (sessionId, data) => {
+        let request = await fetch(`https://api.themoviedb.org/3/list?${this._apiKey}&session_id=${sessionId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(data)
+        });
+
+        let result = await request.json();
+        return await result.list_id
+    }
+
+    postData = async (listId, sessionId, data) => {
+        let request = await fetch(`https://api.themoviedb.org/3/list/${listId}/add_item?${this._apiKey}&session_id=${sessionId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(data)
+        });
+
+        let result = await request.json();
+        return result;
+    }
+
+    getData = async (listId) => {
+        let request = await this.getResource(`https://api.themoviedb.org/3/list/${listId}?${this._apiKey}`);
+        return request.items.map(this._transformPopularContent);
+    }
+
     _transformGenreContent = (content) => {
         return {
             id: content.id,
