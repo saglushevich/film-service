@@ -48,7 +48,7 @@ class FilmService {
         return await this.getResource(`https://api.themoviedb.org/3/authentication/session/new?${this._apiKey}&request_token=${token}`);
     }
 
-    getListId = async (sessionId, data) => {
+    createList = async (sessionId, data) => {
         let request = await fetch(`https://api.themoviedb.org/3/list?${this._apiKey}&session_id=${sessionId}`, {
             method: "POST",
             headers: {
@@ -77,6 +77,15 @@ class FilmService {
     getData = async (listId) => {
         let request = await this.getResource(`https://api.themoviedb.org/3/list/${listId}?${this._apiKey}`);
         return request.items.map(this._transformPopularContent);
+    }
+
+    getAccountId = async (id) => {
+        return await this.getResource(`https://api.themoviedb.org/3/account?${this._apiKey}&session_id=${id}`)
+    }
+
+    getCreatedList = async (id) => {
+        let res = await this.getResource(`https://api.themoviedb.org/3/account/{account_id}/lists?${this._apiKey}&session_id=${id}`);
+        return res;
     }
 
     _transformGenreContent = (content) => {
