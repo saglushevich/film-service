@@ -8,6 +8,7 @@ import SinglePersonPage from "../Pages/SinglePersonPage";
 import SelectedGenrePage from "../Pages/SelectedGenrePage";
 import AccountPage from "../Pages/AccountPage";
 import SingleListPage from "../Pages/SingleListPage";
+import { ProfilePage } from "../Pages/AccountPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App () {
@@ -48,6 +49,10 @@ function App () {
 
                     <Route path="/list/:id">
                         <SingleListPage/>
+                    </Route>
+
+                    <Route path="/profile/:sessionId">
+                        <ProfilePage/>
                     </Route>
                 </Switch>
             </Router>

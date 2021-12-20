@@ -43,7 +43,7 @@ function TrendingMovie () {
                 <ul className="trending__block">
                     {content}
                 </ul>
-                <div className="button">See more</div>
+                <Link to="/movie"><div className="button">See more</div></Link>
             </div>
         </section>
     )
