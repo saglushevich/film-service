@@ -6,6 +6,7 @@ import '../../styles/styles.sass'
 import './AccountPage.sass'
 import bg from '../../resources/img/bg/enter__bg.png'
 import FilmService from '../../services/FilmService';
+import { Link } from "react-router-dom";
 import {useEffect, useState} from 'react'
 
 function AccountPage () {
@@ -13,8 +14,8 @@ function AccountPage () {
     const [token, setToken] = useState('');
     const [sessionId, setSessionId] = useState('');
     const [pageType, setPageType] = useState(true);
-    const [accountId, setAccountId] = useState('');
-    const [createdList, setCreatedList] = useState({})
+    // const [accountId, setAccountId] = useState('');
+    const [createdList, setCreatedList] = useState([]);
 
     useEffect(() => {
         filmService.getRequestToken().then(data => setToken(data.request_token));
@@ -25,23 +26,25 @@ function AccountPage () {
         await filmService.getSessionId(token).then(data => setSessionId(data.session_id));
     }
 
+    const createList = async (id, data) => {
+        await filmService.createList(id, data);
+    }
+
+    const getCreatedLists = async (id) => {
+        await filmService.getCreatedList(id).then(data => {
+            setCreatedList(createdList => [...createdList, ...data]);
+        });
+    }
+
     const data = {
         "name": "This is my awesome test list.",
         "description": "Just an awesome list dawg.",
         "language": "en"
     }
 
-    const createList = async (id, data) => {
-        await filmService.createList(id, data);
-    }
-
-    const getCreatedLists = async (id) => {
-        await filmService.getCreatedList(id).then(data => data.results[0]).then(data => setCreatedList(data));
-    }
-
-    const getAccountId = async (id) => {
-        await filmService.getAccountId(id).then(data => setAccountId(data.id));
-    }
+    // const getAccountId = async (id) => {
+    //     await filmService.getAccountId(id).then(data => setAccountId(data.id));
+    // }
 
     const togglePage = () => {
         setPageType(pageType => !pageType)
@@ -50,7 +53,7 @@ function AccountPage () {
     return (
         <>
             <Header/>
-            {pageType ? <EnterPage token={token} getId={getId} togglePage={togglePage}/> : <ProfilePage createList={() => createList(sessionId, data)} getCreatedLists={() => getCreatedLists(sessionId)} list={createdList}/>}
+            {pageType ? <EnterPage token={token} getId={getId} togglePage={togglePage}/> : <ProfilePage  createdList={createdList}  getCreatedLists={() => getCreatedLists(sessionId)} createList={() => createList(sessionId, data)}/>}
             <Footer/>
         </>
     )
@@ -75,23 +78,31 @@ function EnterPage ({token, getId, togglePage}) {
     )
 }
 
-function ProfilePage ({createList, getCreatedLists, list}) {
-    const [listState, setListState] = useState(true);
+function ProfilePage ({createList, createdList, getCreatedLists}) {
+    const [buttonState, setButtonState] = useState(true);
 
-    const toggleListState = () => {
-        setListState(listState => !listState);
+    const items = createdList.map(item => {
+        return (
+            <Link to={`/list/${item.id}`} key={item.id}>
+                <div key={item.id} className="profile__item">
+                    <div className="profile__item-name">{item.name}</div>
+                </div>
+            </Link>
+        )
+    });
+
+    const toggleButton = () => {
+        setButtonState(buttonState => !buttonState)
     }
 
     return (
         <section className="profile">
             <div className="container">
-                <h2 className="profile__title">What would you like to do:</h2>
-                <div onClick={createList} className="button-large profile__btn">Create list</div>
-                <div onClick={() => {getCreatedLists(); toggleListState()}} className="button-large profile__btn">Get created Lists</div>
-                <div style={listState ? {'display': 'none'} : {'display': 'block'}} className="profile__lists">
-                    <div className="profile__item">
-                        <div className="profile__item-name">{list.name}</div>
-                    </div>
+                <h2 className="profile__title">Here are the lists of movies that you found interesting:</h2>
+                <div onClick={createList} className="button-large profile__btn">Create list</div>    
+                <div onClick={() => {getCreatedLists(); toggleButton()}} style={buttonState ? {'display':'flex'} : {'display':'none'}} className="button-large profile__btn">Get created Lists</div>
+                <div className="profile__lists">
+                    {items}
                 </div>
             </div>
         </section>

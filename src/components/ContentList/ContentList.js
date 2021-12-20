@@ -44,9 +44,8 @@ function ContentList (props) {
         <section className="content">
             <div className="container">
                 <h2 className="content__title">{title}</h2>
-                {loading ? <Spinner/> : null}
                 <ul className="content__grid">
-                    {elements}
+                    {loading ? <Spinner/> : elements}
                 </ul>
                 <div onClick={getNewList} style={getNewList ? {'display': 'flex'} : {'display': 'none'}} className="content__btn">See more</div>
             </div>

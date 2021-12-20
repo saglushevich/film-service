@@ -58,6 +58,7 @@ class FilmService {
         });
 
         let result = await request.json();
+        console.log(result);
         return await result.list_id
     }
 
@@ -85,7 +86,12 @@ class FilmService {
 
     getCreatedList = async (id) => {
         let res = await this.getResource(`https://api.themoviedb.org/3/account/{account_id}/lists?${this._apiKey}&session_id=${id}`);
-        return res;
+        // return res;
+        return res.results.map(item => item);
+    }
+
+    getDataFromList = async (id) => {
+        return await this.getResource(`https://api.themoviedb.org/3/list/${id}?${this._apiKey}`);
     }
 
     _transformGenreContent = (content) => {
@@ -109,8 +115,8 @@ class FilmService {
             overview: film.overview,
             popularity: film.popularity,
             adult: film.adult,
-            country: film.production_countries ? film.production_countries[0].name : film.origin_country,
-            genre: film.genres ? film.genres[0].name : null,
+            // country: film.production_countries ? film.production_countries[0].name : film.origin_country,
+            // genre: film.genres ? film.genres[0].name : null,
             status: film.status
         }
     }

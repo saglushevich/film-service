@@ -7,6 +7,7 @@ import SingleContentPage from "../Pages/SingleContentPage";
 import SinglePersonPage from "../Pages/SinglePersonPage";
 import SelectedGenrePage from "../Pages/SelectedGenrePage";
 import AccountPage from "../Pages/AccountPage";
+import SingleListPage from "../Pages/SingleListPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App () {
@@ -43,6 +44,10 @@ function App () {
                     </Route>
                     <Route path="/account">
                         <AccountPage/>
+                    </Route>
+
+                    <Route path="/list/:id">
+                        <SingleListPage/>
                     </Route>
                 </Switch>
             </Router>

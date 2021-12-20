@@ -34,7 +34,7 @@
         z-index: -1
 
 .profile
-    padding: 80px 0
+    padding-top: 80px
     min-height: 55vh
     position: relative
     &__title
@@ -45,8 +45,8 @@
         color: #FFFFFF
         text-align: center
     &__btn
-        width: 240px
-        height: 60px
+        width: 300px
+        height: 70px
         font-size: 20px
         margin-left: 0px
         margin: 0 auto
@@ -56,14 +56,20 @@
         display: flex
         justify-content: center
         align-items: center
-        width: 340px    
-        height: 198px
+        width: 700px    
+        height: 300px
         border-radius: 20px
         cursor: pointer
-        margin-top: 25px
+        &:nth-child(n+3)
+            margin-top: 50px
         &-name
             font-family: Mulish
             font-weight: 700
             font-size: 28px
             text-align: center
             color: #FFFFFF
+    &__lists
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+        margin-top: 50px
