@@ -24,10 +24,6 @@ function AccountPage () {
         await filmService.getSessionId(token).then(data => setSessionId(data.session_id));
     }
 
-    // const getAccountId = async (id) => {
-    //     await filmService.getAccountId(id).then(data => setAccountId(data.id));
-    // }
-
     return (
         <>
             <Header/>
@@ -53,11 +49,8 @@ function AccountPage () {
     )
 }
 
-//<ProfilePage  createdList={createdList}  getCreatedLists={() => getCreatedLists(sessionId)} createList={() => createList(sessionId, data)}/>
-
 function ProfilePage () {
     const {sessionId} = useParams();
-    //const [accountId, setAccountId] = useState('');
     const [createdList, setCreatedList] = useState([]);
     const [loading, setLoading] = useState(true)
     const filmService = new FilmService();
@@ -70,7 +63,7 @@ function ProfilePage () {
 
     const items = createdList.map(item => {
         return (
-            <Link to={`/list/${item.id}`} key={item.id}>
+            <Link to={`/list/${sessionId}/${item.id}`} key={item.id}>
                 <div key={item.id} className="profile__item">
                     <div className="profile__item-name">{item.name}</div>
                 </div>
@@ -80,6 +73,7 @@ function ProfilePage () {
 
     const createList = async () => {
         await filmService.createList(sessionId, data);
+        updateCreatedList();
     }
 
     const onCreatedListLoaded = (item) => {
@@ -87,8 +81,13 @@ function ProfilePage () {
         setLoading(loading => false)
     }
 
-    useEffect(() => {
+    const updateCreatedList = () => {
+        setCreatedList([]);
         filmService.getCreatedList(sessionId).then(onCreatedListLoaded);
+    }
+
+    useEffect(() => {
+        updateCreatedList();
     }, [sessionId]);
 
     return (
@@ -96,8 +95,8 @@ function ProfilePage () {
             <Header/>
             <section className="profile">
                 <div className="container">
-                    <h2 className="profile__title">Here are the lists of movies that you found interesting:</h2>
-                    <div onClick={createList} className="button-large profile__btn">Create list</div>    
+                    <h2 className="profile__title">Here is a list of films that you found interesting:</h2>
+                    <div onClick={createList} className="button-large profile__btn">Create list</div> 
                     <div className="profile__lists">
                         {loading ? <Spinner/> : items}
                     </div>
@@ -108,6 +107,54 @@ function ProfilePage () {
     )
 }
 
-export default AccountPage
+function SingleListPage () {
+    const {sessionId, id} = useParams();
+    const [listContent, setListContent] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const filmService = new FilmService();
 
+    const onListContentLoaded = (film) => {
+        setListContent(listContent => [...listContent, ...film]);
+        setLoading(loading => false);
+    }
+
+    const onUpdateList = () => {
+        filmService.getDataFromList(id).then(data => data.items).then(onListContentLoaded)
+    }
+
+    useEffect(() => {
+        onUpdateList();
+    }, [id])
+
+    const elements = listContent.map(item => {
+        return (
+            <Link to={`/details/${item.media_type}/${item.id}`} key={item.id}>
+                <li key={item.id} className="singleListPage__item">
+                    <div className="singleListPage__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name } /></div>
+                    <div className="singleListPage__item-title">{item.name}</div>  
+                </li>
+            </Link>
+        )
+    })
+
+    return (
+        <>
+            <Header/>
+            <section className="singleListPage">
+                <div className="container">
+                    <h2 className="singleListPage__title">Contents of this list:</h2>
+                    <Link to={`/profile/${sessionId}/${id}`}>
+                        <div className="button-large singleListPage__btn">Add film to your list</div>
+                    </Link>
+                    <ul className="singleListPage__grid">
+                        {loading ? <Spinner/> : elements}
+                    </ul>
+                </div>
+            </section>
+            <Footer/>
+        </>
+    )
+}
+
+export default AccountPage
 export {ProfilePage}

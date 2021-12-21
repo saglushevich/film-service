@@ -62,7 +62,7 @@ class FilmService {
         return await result.list_id
     }
 
-    postData = async (listId, sessionId, data) => {
+    postDataToList = async (listId, sessionId, data) => {
         let request = await fetch(`https://api.themoviedb.org/3/list/${listId}/add_item?${this._apiKey}&session_id=${sessionId}`, {
             method: "POST",
             headers: {
