@@ -93,7 +93,8 @@ class FilmService {
             adult: film.adult,
             // country: film.production_countries ? film.production_countries[0].name : film.origin_country,
             // genre: film.genres ? film.genres[0].name : null,
-            status: film.status
+            status: film.status,
+            //media__type: film.media__type
         }
     }
 

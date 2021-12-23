@@ -19,7 +19,8 @@ function Header () {
                     </ul>
                     <div className="nav__icons">
                         <div className="nav__icon"><Link to="/search"><img src={search} alt="search" /></Link></div>
-                        <div className="nav__icon"><Link to="/account"><img src={profile} alt="profile" /></Link></div>
+                        {sessionStorage.getItem('sessionId') ? <div className="nav__icon"><Link to={`/profile/${sessionStorage.getItem('sessionId')}/${sessionStorage.getItem('listId')}`}><img src={profile} alt="profile" /></Link></div> 
+                        : <div className="nav__icon"><Link to="/account"><img src={profile} alt="profile" /></Link></div>}
                     </div>
                 </nav>
             </div>

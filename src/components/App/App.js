@@ -41,16 +41,20 @@ function App () {
                     <Route path="/details/person/:id">
                         <SinglePersonPage/>
                     </Route>
-                    <Route path="/account">
+
+                    <Route path="/account" exact>
                         <AccountPage/>
                     </Route>
-                    <Route path="/profile/:sessionId/:listId">
-                        <ProfilePage/>
+                    <Route path="/account/:filmId" exact>
+                        <AccountPage/>
                     </Route>
 
-                    {/* <Route path="/adding/:sessionId/:listId">
-                        <AddingMovieToList/>
-                    </Route> */}
+                    <Route path="/profile/:sessionId/:listId" exact>
+                        <ProfilePage/>
+                    </Route>
+                    <Route path="/profile/:sessionId/:listId/:filmId" exact>
+                        <ProfilePage/>
+                    </Route>
                 </Switch>
             </Router>
         </div>

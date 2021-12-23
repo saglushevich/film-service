@@ -2,7 +2,7 @@ import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import FilmService from '../../services/FilmService';
 import { useEffect, useState } from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import Spinner from '../Spinner/Spinner';
 import './SingleContentPage.sass'
 import '../../styles/styles.sass'
@@ -31,13 +31,26 @@ function SingleContentPage (props) {
     return (
         <>
             <Header/>
-            {loading ? <Spinner/> : <ViewInfo info={info}/>}
+            {loading ? <Spinner/> : <ViewInfo info={info} type={type}/>}
             <Footer/>
         </>
     )
 }
 
-function ViewInfo ({info}) {
+function ViewInfo ({info, type}) {
+
+    const toggleBtn = () => {
+        if(type === 'movie') {
+            return (
+                sessionStorage.getItem('sessionId') ? <Link to={`/profile/${sessionStorage.getItem('sessionId')}/${sessionStorage.getItem('listId')}/${info.id}`}><div className="button-large single__btn">Add this film to your list</div></Link> :
+                <Link to={`/account/${info.id}`}>
+                    <div className="button-large single__btn">Add this film to your list</div>
+                </Link>
+            )
+        } else {
+            return null
+        }
+    }
     return (
         <>
             <div className="single__block">
@@ -57,6 +70,8 @@ function ViewInfo ({info}) {
                     <div className="single__info-overview">
                         {info.overview}
                     </div>
+                    {toggleBtn()}
+                    
                 </div>
             </div>
         </>
