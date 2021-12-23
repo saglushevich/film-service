@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-target-blank */
 import Header from "../Header/Header";
@@ -15,14 +16,39 @@ function AccountPage () {
     const filmService = new FilmService();
     const [token, setToken] = useState('');
     const [sessionId, setSessionId] = useState('');
+    const [createdList, setCreatedList] = useState([]);
+    const [listId, setListId] = useState('');
 
     useEffect(() => {
         filmService.getRequestToken().then(data => setToken(data.request_token));
     }, []);
 
     const getSessionId = async () => {
-        await filmService.getSessionId(token).then(data => setSessionId(data.session_id));
+        await filmService.getSessionId(token).then(data => setSessionId(data.session_id)); 
     }
+
+    const onCreatedListLoaded = (item) => {
+        setCreatedList(createdList => [...createdList, ...item]);
+    }
+
+    useEffect(() => {
+        if(!sessionId) {
+            return;
+        }
+        setCreatedList([]);
+        filmService.getCreatedList(sessionId).then(onCreatedListLoaded);
+    }, [sessionId])
+
+    useEffect(() => {
+        if(!createdList) {
+            return;
+        }
+        createdList.map(item => {
+            setListId(item.id)
+        })
+        
+    }, [createdList])
+
 
     return (
         <>
@@ -37,7 +63,7 @@ function AccountPage () {
                         <a href={`https://www.themoviedb.org/authenticate/${token}`} target="_blank" className="button-large enter__btn">Log in</a>
                         <div className="enter__text">If you have passed the previous stage - click on the button below: you need to get the session key</div>
                         <div onClick={getSessionId} className="button-large enter__btn">Get access</div>
-                        <Link to={`/profile/${sessionId}`}>
+                        <Link to={`/profile/${sessionId}/${listId}`}>
                             <div className="button-large enter__btn">Ok. Click</div>
                         </Link>
                     </div>
@@ -50,81 +76,19 @@ function AccountPage () {
 }
 
 function ProfilePage () {
-    const {sessionId} = useParams();
-    const [createdList, setCreatedList] = useState([]);
-    const [loading, setLoading] = useState(true)
-    const filmService = new FilmService();
-
-    const data = {
-        "name": "This is my awesome test list.",
-        "description": "Just an awesome list dawg.",
-        "language": "en"
-    }
-
-    const items = createdList.map(item => {
-        return (
-            <Link to={`/list/${sessionId}/${item.id}`} key={item.id}>
-                <div key={item.id} className="profile__item">
-                    <div className="profile__item-name">{item.name}</div>
-                </div>
-            </Link>
-        )
-    });
-
-    const createList = async () => {
-        await filmService.createList(sessionId, data);
-        updateCreatedList();
-    }
-
-    const onCreatedListLoaded = (item) => {
-        setCreatedList(createdList => [...createdList, ...item]);
-        setLoading(loading => false)
-    }
-
-    const updateCreatedList = () => {
-        setCreatedList([]);
-        filmService.getCreatedList(sessionId).then(onCreatedListLoaded);
-    }
-
-    useEffect(() => {
-        updateCreatedList();
-    }, [sessionId]);
-
-    return (
-        <>
-            <Header/>
-            <section className="profile">
-                <div className="container">
-                    <h2 className="profile__title">Here is a list of films that you found interesting:</h2>
-                    <div onClick={createList} className="button-large profile__btn">Create list</div> 
-                    <div className="profile__lists">
-                        {loading ? <Spinner/> : items}
-                    </div>
-                </div>
-            </section>
-            <Footer/>
-        </>
-    )
-}
-
-function SingleListPage () {
-    const {sessionId, id} = useParams();
+    const {sessionId, listId} = useParams();
     const [listContent, setListContent] = useState([]);
     const [loading, setLoading] = useState(true);
     const filmService = new FilmService();
 
-    const onListContentLoaded = (film) => {
-        setListContent(listContent => [...listContent, ...film]);
+    const onListContentLoaded = (item) => {
+        setListContent(listContent => [...listContent, ...item]);
         setLoading(loading => false);
     }
-
-    const onUpdateList = () => {
-        filmService.getDataFromList(id).then(data => data.items).then(onListContentLoaded)
-    }
-
+    
     useEffect(() => {
-        onUpdateList();
-    }, [id])
+        filmService.getListDetails(listId).then(data => data.items).then(onListContentLoaded);
+    }, [])
 
     const elements = listContent.map(item => {
         return (
@@ -142,12 +106,13 @@ function SingleListPage () {
             <Header/>
             <section className="singleListPage">
                 <div className="container">
-                    <h2 className="singleListPage__title">Contents of this list:</h2>
-                    <Link to={`/profile/${sessionId}/${id}`}>
+                    <h2 className="singleListPage__title">The contents of your list:</h2>
+                    <Link to={`/profile/${sessionId}/${listId}`}>
                         <div className="button-large singleListPage__btn">Add film to your list</div>
                     </Link>
+                    {loading ? <Spinner/> : null}
                     <ul className="singleListPage__grid">
-                        {loading ? <Spinner/> : elements}
+                        {!loading ? elements : null}
                     </ul>
                 </div>
             </section>
@@ -155,6 +120,4 @@ function SingleListPage () {
         </>
     )
 }
-
-export default AccountPage
-export {ProfilePage}
+export {ProfilePage, AccountPage}

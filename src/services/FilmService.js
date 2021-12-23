@@ -48,20 +48,6 @@ class FilmService {
         return await this.getResource(`https://api.themoviedb.org/3/authentication/session/new?${this._apiKey}&request_token=${token}`);
     }
 
-    createList = async (sessionId, data) => {
-        let request = await fetch(`https://api.themoviedb.org/3/list?${this._apiKey}&session_id=${sessionId}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8"
-            },
-            body: JSON.stringify(data)
-        });
-
-        let result = await request.json();
-        console.log(result);
-        return await result.list_id
-    }
-
     postDataToList = async (listId, sessionId, data) => {
         let request = await fetch(`https://api.themoviedb.org/3/list/${listId}/add_item?${this._apiKey}&session_id=${sessionId}`, {
             method: "POST",
@@ -75,22 +61,12 @@ class FilmService {
         return result;
     }
 
-    getData = async (listId) => {
-        let request = await this.getResource(`https://api.themoviedb.org/3/list/${listId}?${this._apiKey}`);
-        return request.items.map(this._transformPopularContent);
-    }
-
-    getAccountId = async (id) => {
-        return await this.getResource(`https://api.themoviedb.org/3/account?${this._apiKey}&session_id=${id}`)
-    }
-
     getCreatedList = async (id) => {
         let res = await this.getResource(`https://api.themoviedb.org/3/account/{account_id}/lists?${this._apiKey}&session_id=${id}`);
-        // return res;
         return res.results.map(item => item);
     }
 
-    getDataFromList = async (id) => {
+    getListDetails = async (id) => {
         return await this.getResource(`https://api.themoviedb.org/3/list/${id}?${this._apiKey}`);
     }
 

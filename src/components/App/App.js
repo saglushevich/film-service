@@ -6,9 +6,7 @@ import PeoplePage from "../Pages/PeoplePage";
 import SingleContentPage from "../Pages/SingleContentPage";
 import SinglePersonPage from "../Pages/SinglePersonPage";
 import SelectedGenrePage from "../Pages/SelectedGenrePage";
-import AccountPage from "../Pages/AccountPage";
-import SingleListPage from "../Pages/SingleListPage";
-import { ProfilePage, AddingMovieToList } from "../Pages/AccountPage";
+import { ProfilePage, AccountPage } from "../Pages/AccountPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App () {
@@ -46,18 +44,13 @@ function App () {
                     <Route path="/account">
                         <AccountPage/>
                     </Route>
-
-                    <Route path="/list/:sessionId/:id">
-                        <SingleListPage/>
-                    </Route>
-
-                    <Route path="/profile/:sessionId">
+                    <Route path="/profile/:sessionId/:listId">
                         <ProfilePage/>
                     </Route>
 
-                    <Route path="/adding/:sessionId/:listId">
+                    {/* <Route path="/adding/:sessionId/:listId">
                         <AddingMovieToList/>
-                    </Route>
+                    </Route> */}
                 </Switch>
             </Router>
         </div>
