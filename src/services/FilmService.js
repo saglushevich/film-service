@@ -61,6 +61,19 @@ class FilmService {
         return result;
     }
 
+    createList = async (sessionId, data) => {
+        let request = await fetch(`https://api.themoviedb.org/3/list?${this._apiKey}&session_id=${sessionId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(data)
+        });
+
+        let result = await request.json();
+        return result;
+    }
+
     getCreatedList = async (id) => {
         let res = await this.getResource(`https://api.themoviedb.org/3/account/{account_id}/lists?${this._apiKey}&session_id=${id}`);
         return res.results.map(item => item);

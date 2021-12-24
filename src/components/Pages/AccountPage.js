@@ -14,7 +14,7 @@ import Spinner from "../Spinner/Spinner";
 
 function AccountPage () {
     const filmService = new FilmService();
-    const {filmId} = useParams();
+    // const {filmId} = useParams();
     const [token, setToken] = useState('');
     const [sessionId, setSessionId] = useState('');
     const [createdList, setCreatedList] = useState([]);
@@ -38,21 +38,45 @@ function AccountPage () {
         if(!sessionId) {
             return;
         }
-        setCreatedList([]);
-        filmService.getCreatedList(sessionId).then(onCreatedListLoaded);
-        sessionStorage.setItem('sessionId', sessionId)
+        updateList()
     }, [sessionId])
 
     useEffect(() => {
         if(!createdList) {
             return;
         }
+
         createdList.map(item => {
             setListId(item.id)
             sessionStorage.setItem('listId', item.id)
         })
-        
     }, [createdList])
+
+
+    const createNewList = () => {
+        console.log('createNewList')
+        let data = {
+            "name": "plplplplpll.",
+            "description": "njnfdjgjndfjgndjfg.",
+            "language": "en"
+        }
+        filmService.createList(sessionId, data).then(data => data.list_id).then(data => {
+            setListId(data);
+            sessionStorage.setItem('listId', data)
+        })
+    }
+
+    const updateList = () => {
+        setCreatedList([]);
+        filmService.getCreatedList(sessionId).then(data => {
+            if(data.length === 0){
+                createNewList()
+                return;
+            } 
+            onCreatedListLoaded(data)
+        })
+        sessionStorage.setItem('sessionId', sessionId);
+    }
 
     const toggleSecondButtonState = () => {
         setSecondButtonState(secondButtonState => !secondButtonState);
@@ -83,7 +107,7 @@ function AccountPage () {
                             <div onClick={getSessionId} className="button-large enter__btn">Get key</div>
                         </div>
                         <div style={thirdButtonState ? {'display': 'block'} : {'display': 'none'}} className="enter__step">
-                            <Link to={`/profile/${sessionId}/${listId}/${filmId}`}>
+                            <Link to={`/profile/${sessionId}/${listId}`}>
                                 <div className="button-large enter__btn enter__btn-main">Get access to your account</div>
                             </Link>
                         </div>
@@ -146,7 +170,8 @@ function ProfilePage () {
                         <div className="button-large profile__btn">Add film to your list</div>
                     </Link>
                     {loading ? <Spinner/> : null}
-                    <ul className="profile__grid">
+                    {listContent.length !== 0 ? null : <div className="profile__title" style={{'marginTop' : '50px'}}>There are nothing to show</div>}
+                    <ul style={listContent.length !== 0 ? {'display' : 'grid'} : {'display' : 'none'}} className="profile__grid">
                         {!loading ? elements : null}
                     </ul>
                 </div>
