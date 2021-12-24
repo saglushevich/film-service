@@ -45,7 +45,8 @@
         list-style: none
         display: grid
         grid-template-columns: repeat(3, 350px)
-        grid-template-rows: repeat(auto, 490px)
+        grid-template-rows: 510px
+        grid-auto-rows: 510px
         gap: 60px
         justify-content: center
         margin-top: 40px
@@ -60,8 +61,8 @@
         width: 350px
         height: 490px
         border-radius: 20px
-        cursor: pointer
         transition: all .5s
+        cursor: pointer
         &:nth-child(n+6)
             margin-top: 40px
         &-img
@@ -79,7 +80,7 @@
             text-align: center
             color: #FFFFFF
             margin-top: 20px
-            line-height: 20px
+            line-height: 26px
         &:hover
             filter: drop-shadow(0px 0px 20px rgba(44, 176, 249, 0.5))
     &__btn
