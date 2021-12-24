@@ -26,6 +26,7 @@ function MoviePage () {
 
     useEffect(() => {
         updateMovieList('movie');
+        window.scrollTo(0,0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

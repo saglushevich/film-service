@@ -48,7 +48,6 @@ function App () {
                     <Route path="/account/:filmId" exact>
                         <AccountPage/>
                     </Route>
-
                     <Route path="/profile/:sessionId/:listId" exact>
                         <ProfilePage/>
                     </Route>

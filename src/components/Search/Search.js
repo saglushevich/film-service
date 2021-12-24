@@ -37,7 +37,7 @@ function Search () {
 
     const acting = searchResult.filter(item => item.media_type === 'person' && item.profile_path);
     const movie = searchResult.filter(item => item.media_type === 'movie' && item.poster_path);
-    const tv = searchResult.filter(item => item.media_type === 'tv' & item.poster_path);
+    const tv = searchResult.filter(item => item.media_type === 'tv' && item.poster_path);
 
     const actingContent = acting.map(actor => {
         return (

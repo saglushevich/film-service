@@ -26,6 +26,7 @@ function TVPage (props) {
 
     useEffect(() => {
         updateTVList('tv');
+        window.scrollTo(0,0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -107,21 +107,27 @@ function ProfilePage () {
         setListContent(listContent => [...listContent, ...item]);
         setLoading(loading => false);
     }
+
+    const updateContentList = () => {
+        filmService.getListDetails(listId).then(data => data.items).then(onListContentLoaded);
+    }
     
     useEffect(() => {
-        filmService.getListDetails(listId).then(data => data.items).then(onListContentLoaded);
+        updateContentList();
     }, [])
 
     useEffect(() => {
         let data = {
-            "media_id": filmId,
+            "media_id": filmId
         }
         filmService.postDataToList(listId, sessionId, data)
+        setListContent([]);
+        updateContentList();
     }, [filmId])
 
     const elements = listContent.map(item => {
         return (
-            <Link to={`/details/${item.id}`} key={item.id}>
+            <Link to={`/details/${item.media_type}/${item.id}`} key={item.id}>
                 <li key={item.id} className="profile__item">
                     <div className="profile__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name || item.title} /></div>
                     <div className="profile__item-title">{item.name || item.title}</div>  

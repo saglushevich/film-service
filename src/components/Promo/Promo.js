@@ -49,12 +49,13 @@ function ViewPromo ({film}) {
                     <div className="promo__info-text">{vote}<img src={rating} alt="rating"/></div>
                 </div>
                 <div className="promo__text">{overview.length > 200 ? `${overview.slice(0, 200)}...` : overview}</div>
-                <div className="promo__btns">
+                {/* <div className="promo__btns">
                     <div className="button">Watch</div>
-                    <Link to={`/details/movie/${id}`} key={id}>
-                        <div className="button-large">More information</div>
-                    </Link>
-                </div>
+                    
+                </div> */}
+                <Link to={`/details/movie/${id}`} key={id}>
+                    <div className="button-large promo__btn">More information</div>
+                </Link>
             <div className="promo__img"><img src={image} alt="main__bg" /></div>
         </>
     )

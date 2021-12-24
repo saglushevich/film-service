@@ -27,6 +27,10 @@ function SelectedGenrePage () {
     }
 
     useEffect(() => {
+        window.scrollTo(0,0);
+    }, [])
+
+    useEffect(() => {
         updateInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [genre]);

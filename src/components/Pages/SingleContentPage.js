@@ -60,7 +60,6 @@ function ViewInfo ({info, type}) {
                         <div className="single__info-text"><span>Title:</span> {info.title || info.name}</div>
                         <div className="single__info-text">{info.adult ? '18+' : null}</div>
                         <div className="single__info-text"><span>Genres:</span> {info.genre}</div>
-                        <div className="single__info-text"><span>Country:</span> {info.country}</div>
                         <div className="single__info-text"><span>Status:</span> {info.status}</div>
                         <div className="single__info-text"><span>Release date:</span> {info.date}</div>
                         <div className="single__info-text"><span>Popularity:</span> {info.popularity}</div>
