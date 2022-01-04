@@ -8,6 +8,7 @@ import SinglePersonPage from "../Pages/SinglePersonPage";
 import SelectedGenrePage from "../Pages/SelectedGenrePage";
 import { ProfilePage, AccountPage } from "../Pages/AccountPage";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import '../../styles/media.sass'
 
 function App () {
     return (
@@ -42,7 +43,7 @@ function App () {
                         <SinglePersonPage/>
                     </Route>
 
-                    <Route path="/account" exact>
+                    {/* <Route path="/account" exact>
                         <AccountPage/>
                     </Route>
                     <Route path="/account/:filmId" exact>
@@ -53,7 +54,7 @@ function App () {
                     </Route>
                     <Route path="/profile/:sessionId/:listId/:filmId" exact>
                         <ProfilePage/>
-                    </Route>
+                    </Route> */}
                 </Switch>
             </Router>
         </div>

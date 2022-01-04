@@ -1,0 +1,118 @@
+@media (max-width: 1300px) 
+    .container
+        max-width: 1200px
+    .promo
+        &__text
+            width: 450px
+    .trending
+        &__item
+            width: 190px
+    .genres
+        &__block
+            justify-content: space-between
+        &__item
+            width: 290px
+
+@media (max-width: 1220px) 
+    .container
+        max-width: 960px
+    .promo
+        padding-top: 60px
+        padding-bottom: 100px
+        min-height: 680px
+        &__img
+            width: 500px
+        &__text
+            width: 460px
+    .trending
+        &__block
+            flex-wrap: wrap
+            justify-content: center
+            a
+                &:nth-last-child(n+3)
+                    margin-bottom: 30px
+                &:nth-child(-n+3)
+                    margin-right: 15px
+                &:nth-last-child(1)
+                    margin-left: 15px
+    .genres
+        padding: 50px 0
+        &__block
+            justify-content: center
+            a
+                &:nth-child(2n+1)
+                    margin-right: 35px
+
+@media (max-width: 992px) 
+    .container
+        max-width: 720px
+    .nav
+        &__item
+            font-size: 15px
+    .promo
+        min-height: 650px
+        padding-top: 40px
+        &__img
+            width: 340px
+        &__title
+            width: 440px
+        &__text
+            width: 400px
+    .trending
+        &__block
+            flex-wrap: wrap
+            justify-content: space-evenly
+            a
+                &:nth-last-child(n+4)
+                    margin-bottom: 30px
+    .genres
+        padding: 50px 0
+        &__block
+            justify-content: space-evenly
+
+@media (max-width: 768px) 
+    .container
+        max-width: 540px
+    .nav
+        &__menu
+            display: none
+    .promo
+        padding-top: 40px
+        min-height: 625px
+        &__img
+            display: none
+    .trending
+        &__block
+            flex-wrap: wrap
+            justify-content: space-evenly
+            a
+                &:nth-last-child(n+3)
+                    margin-bottom: 30px
+    .genres
+        padding: 50px 0
+        &__block
+            justify-content: center
+    .content
+        padding-top: 50px
+        &__grid
+            grid-template-columns: repeat(2, 206px)
+            gap: 40px
+        &__btn
+            margin-top: 60px
+    .search
+        &__input
+            width: 90%
+        &__title
+            margin-top: 40px
+            margin-left: 45px
+            &-main
+                font-size: 36px
+                line-height: 36px
+        &__grid
+            grid-template-columns: repeat(2, 206px)
+            gap: 40px
+
+@media (max-width: 576) 
+    .container
+        width: 100%
+        padding: 0 10px
