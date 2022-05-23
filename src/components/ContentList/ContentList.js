@@ -1,44 +1,22 @@
-import Spinner from "../Spinner/Spinner";
 import './ContentList.sass';
 import '../../styles/styles.sass';
 import {Link} from 'react-router-dom'
+import Spinner from '../Spinner/Spinner';
 
 function ContentList (props) {
 
-    const {data, loading, title, getNewList, type} = props;
+    const {data, title, type, loading, getNewList} = props;
 
-    const elements = data.map(item => {
-        if(type === 'movie') {
-            return (
-                <Link to={`/details/movie/${item.id}`} key={item.id}>
-                    <li key={item.id} className="content__item">
-                        <div className="search__item-img"><img src={item.image} alt={item.title || item.name} /></div>
-                        <div className="search__item-title">{item.name || item.title}</div>  
-                    </li>
-                </Link>
-            )
-        } else if (type === 'tv'){
-            return (
-                <Link to={`/details/tv/${item.id}`} key={item.id}>
-                    <li key={item.id} className="content__item">
-                        <div className="search__item-img"><img src={item.image} alt={item.title || item.name} /></div>
-                        <div className="search__item-title">{item.name || item.title}</div>  
-                    </li>
-                </Link>
-            )
-        } else if (type === 'person') {
-            return (
-                <Link to={`/details/person/${item.id}`} key={item.id}>
-                    <li key={item.id} className="content__item">
-                        <div className="search__item-img"><img src={item.image} alt={item.title || item.name} /></div>
-                        <div className="search__item-title">{item.name || item.title}</div>  
-                    </li>
-                </Link>
-            )
-        } 
-
-        return null;
-    });
+    const elements = data.filter(item => item.profile_path || item.poster_path).map(item => {
+        return (
+            <Link to={`/details/${type}/${item.id}`} key={item.id}>
+                <li key={item.id} className="content__item">
+                    <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path || item.profile_path}`} alt={`${item.title || item.name}poster`} /></div>
+                    <div className="search__item-title">{item.name || item.title}</div>  
+                </li>
+            </Link>
+        )
+    })
 
     return (
         <section className="content">

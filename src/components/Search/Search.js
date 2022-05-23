@@ -1,76 +1,47 @@
 import '../../styles/styles.sass';
 import './Search.sass';
 import search from '../../resources/icons/search.svg';
-import FilmService from '../../services/FilmService';
 import {useState} from 'react';
 import Spinner from '../Spinner/Spinner';
 import { Link } from 'react-router-dom';
+import {getContentBySearch} from '../../services/FilmService'
 
 function Search () {
     const [searchResult, setSearchResult] = useState([]);
-    const [term, setTerm] = useState('');
+    const [request, setRequest] = useState('');
     const [loading, setLoading] = useState(false);
-    const filmService = new FilmService();
 
-    const onSearchResultLoaded = (result) => {
-        setSearchResult(searchResult => [...searchResult, ...result]);
-        setLoading(loading => false);
+    const getSearchResult = async (query) => {
+        setLoading(true);
+        await getContentBySearch(query).then(data => data.results).then(data => setSearchResult(data))
+        setLoading(false)
     }
 
-    const onValueChange = (e) => {
-        setTerm(e.target.value);
-    }
-
-    const updateResultList = (query) => {
-        filmService.getSearch(query).then(onSearchResultLoaded).catch(console.log('Something went wrong!'));
-    }
-
-    const onSubmit = (e) => {
-        if(!term) {
+    const onSubmit = async (e) => {
+        if(!request) {
             return;
         }
         e.preventDefault();
-        setLoading(loading => true);
         setSearchResult([]);
-        updateResultList(term);
+        await getSearchResult(request);
     }
 
-    const acting = searchResult.filter(item => item.media_type === 'person' && item.profile_path);
-    const movie = searchResult.filter(item => item.media_type === 'movie' && item.poster_path);
-    const tv = searchResult.filter(item => item.media_type === 'tv' && item.poster_path);
+    const getContent = (data, type) => {
+        return data.map(item => {
+            return (
+                <Link to={`/details/${type}/${item.id}`} key={item.id}>
+                    <li key={item.id} className="search__item">
+                        <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.profile_path || item.poster_path}`} alt={item.name || item.title} /></div>
+                        <div className="search__item-title">{item.name || item.title}</div>    
+                    </li>
+                </Link>
+            )
+        })
+    }
 
-    const actingContent = acting.map(actor => {
-        return (
-            <Link to={`/details/person/${actor.id}`} key={actor.id}>
-                <li key={actor.id} className="search__item">
-                    <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt={actor.name} /></div>
-                    <div className="search__item-title">{actor.name}</div>    
-                </li>
-            </Link>
-        )
-    })
-
-    const movieContent = movie.map(item => {
-        return (
-            <Link to={`/details/movie/${item.id}`} key={item.id}>
-                <li key={item.id} className="search__item">
-                    <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} /></div>
-                    <div className="search__item-title">{item.title}</div>    
-                </li>
-            </Link>
-        )
-    })
-
-    const tvContent = tv.map(item => {
-        return (
-            <Link to={`/details/tv/${item.id}`} key={item.id}>
-                <li key={item.id} className="search__item">
-                    <div className="search__item-img"><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} /></div>
-                    <div className="search__item-title">{item.name}</div>    
-                </li>
-            </Link>
-        )
-    })
+    const acting = getContent(searchResult.filter(item => item.media_type === 'person' && item.profile_path), 'person');
+    const movie = getContent(searchResult.filter(item => item.media_type === 'movie' && item.poster_path), 'movie');
+    const tv = getContent(searchResult.filter(item => item.media_type === 'tv' && item.poster_path), 'tv');
 
     const spinner = loading ? <Spinner/> : null;
 
@@ -78,16 +49,15 @@ function Search () {
         <div className="search">
             <div className="container">
                 <form onSubmit={onSubmit} className='search__form'>
-                    <input value={term} onChange={onValueChange} name="film" placeholder="enter your request: " type="text" className="search__input" />
+                    <input value={request} onChange={(e) => setRequest(e.target.value)} name="film" placeholder="enter your request: " type="text" className="search__input" />
                     <button className="search__btn"><img style={{'width': '40px'}} src={search} alt="search" /></button>
                 </form>
-
                 <div className="search__block">
                     {spinner}
                     {searchResult.length === 0 ? <h2 className='search__title search__title-main'>Enter your request in the field above</h2> : null}
-                    {acting.length === 0 ? null : <ViewContent content={actingContent} title="People: "/>}
-                    {movie.length === 0 ? null : <ViewContent content={movieContent} title="Movie: "/>}
-                    {tv.length === 0 ? null : <ViewContent content={tvContent} title="TV: "/>}
+                    {acting.length === 0 ? null : <ViewContent content={acting} title="People: "/>}
+                    {movie.length === 0 ? null : <ViewContent content={movie} title="Movie: "/>}
+                    {tv.length === 0 ? null : <ViewContent content={tv} title="TV: "/>}
                 </div>
             </div>
         </div>

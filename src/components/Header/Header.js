@@ -1,7 +1,6 @@
 import '../../styles/styles.sass';
 import './Header.sass';
 import search from '../../resources/icons/search.svg';
-import profile from '../../resources/icons/profile.svg';
 import logo from '../../resources/logo/logo.svg';
 import {Link, NavLink} from 'react-router-dom';
 
@@ -19,8 +18,6 @@ function Header () {
                     </ul>
                     <div className="nav__icons">
                         <div className="nav__icon"><Link to="/search"><img src={search} alt="search" /></Link></div>
-                        {sessionStorage.getItem('sessionId') ? <div className="nav__icon"><Link to={`/profile/${sessionStorage.getItem('sessionId')}/${sessionStorage.getItem('listId')}`}><img src={profile} alt="profile" /></Link></div> 
-                        : <div className="nav__icon"><Link to="/account"><img src={profile} alt="profile" /></Link></div>}
                     </div>
                 </nav>
             </div>
